@@ -5,7 +5,7 @@ $(document).ready(function(){
           /*click event when button with id searchbtn_ctr clicked*/
 		    	$("#searchbtn_top, #searchbtn_ctr").click(function(){
 	          var searchText = "";
-            window.alert("clkicked");
+            //window.alert("clkicked");
 	        	// checking whether input text is empty or not 
             // assign given input as tag for api
             if ($(this).attr('id') ==='searchbtn_top') {
@@ -17,7 +17,7 @@ $(document).ready(function(){
 	        	else{
 	        		window.alert("Enter key word!!!");
 	        	}
-            window.alert(searchText);
+            //window.alert(searchText);
 
 		        // account api key
             var flickrKey = "b0b3c93c14c637413c1e76143110dd6f";

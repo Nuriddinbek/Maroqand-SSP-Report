@@ -1,0 +1,86 @@
+<!--index.html - Phliker 1.0.0-->
+<!--index page of the simple website application - phliker-->
+<!DOCTYPE html>
+<html>
+<head>
+	<!--name tittle bar as website namme-->
+	<title>Phliker</title>
+
+	<!--include references for external links and sources-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link href="./css/font-awesome.css" rel="stylesheet"/>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+	<script type="text/javascript" src="./js/bootstrap.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<script type="text/javascript" src="./js/main.js"></script>
+</head>
+<body>
+	<!--inline styling for navbar-->
+	<nav class="collapse navbar-collapse" style="background-color: #1d3356; height: 150px">
+	  <div class="container-fluid" style="height: 65px">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="#"><strong>phliker</strong></a>
+	    </div>
+	    <form action="#" class="navbar-form navbar-right">
+	      <div class="form-group">
+	      	<!--defining input text and search button on navigation bar-->
+	        <input type="text" id="inputTextTop" class="form-control" placeholder="search">
+	      </div>
+	      <button type="submit" id="searchbtn_top" class="btn btn-default">Go!</button>
+	    </form>
+	  </div>
+	</nav>
+	<!--center search box with search button-->
+	<div class="outer-div">
+	  <div class="center-search-box" id="centersearch">
+		<div class="input-group" id="searchid">
+		  <input type="text" class="form-control" id="inputTextCenter" placeholder="Search">
+		  	<div class="input-group-btn">
+		  		<!-- getting font-awesome icon for button-->
+		  	  <button type="submit" id="searchbtn_ctr" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+		  	</div>
+		  </div>
+	    </div>
+	</div>
+	<div class="nextdiv">
+		<div id="singleImgModal" class="modal"> 
+			<img class="modal-content" id="clickedImg"/>
+			<div id="caption">
+				<div class="title-div">
+					<h5 class="title"><strong>Title: </strong></h5>
+					<p class="title"><strong></strong></p>	
+				</div>
+				
+				<div class="country-div">
+					<h5 class="country"><strong>Country: </strong></h5>
+					<p class="country"><strong></strong></p>
+				</div>
+			
+				<div class="region-div">
+					<h5 class="region"><strong>Region: </strong></h5>
+					<p class="region"><strong></strong></p>
+				</div>	
+				
+				
+				<div class="place-div">
+					<h5 class="place"><strong>Place: </strong></h5>
+					<p class="place"><strong></strong></p>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+	<!--
+
+		b0b3c93c14c637413c1e76143110dd6f
+
+		159376744@NO7
+	links:
+	1. navbar: https://www.w3schools.com/bootstrap/bootstrap_navbar.asp 
+		https://v4-alpha.getbootstrap.com/components/navbar/ 
+
+		http://api.jquery.com/jquery.getjson/
+		https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal_img
+	-->

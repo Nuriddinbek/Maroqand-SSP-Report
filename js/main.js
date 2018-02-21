@@ -5,20 +5,20 @@ $(document).ready(function(){
           /*click event when button with id searchbtn_ctr clicked*/
 		    	$("#searchbtn_top, #searchbtn_ctr").click(function(){
 	          var searchText = "";
-            //window.alert("clkicked");
+            
 	        	// checking whether input text is empty or not 
             // assign given input as tag for api
-            if ($(this).attr('id') ==='searchbtn_top') {
+            if ($(this).attr('id') ==='searchbtn_top' && $('#inputTextTop').val()!=="") {
 	        		searchText = $('#inputTextTop').val();
 	        	}
-	        	else if($(this).attr('id')==='searchbtn_ctr'){
+	        	else if($(this).attr('id')==='searchbtn_ctr' && $('#inputTextCenter').val()!==""){
 	        		searchText = $('#inputTextCenter').val();
 	        	}
 	        	else{
 	        		window.alert("Enter key word!!!");
+              return false;
 	        	}
-            //window.alert(searchText);
-
+          
 		        // account api key
             var flickrKey = "b0b3c93c14c637413c1e76143110dd6f";
             var per_page_display = 40;
@@ -32,8 +32,8 @@ $(document).ready(function(){
    					}
               // api url with given api key, tag name and per page quantity
         	  var flickrApiUrl = "https://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key="+flickrKey+"&tags="+searchText+"&format=json&per_page="+per_page_display;
-
-
+            
+            
 						// print flickr api url in console for debugging
 						console.log(flickrApiUrl);
           // temporary cumulative variable for retrived images
@@ -45,40 +45,64 @@ $(document).ready(function(){
 							server: 'server',
 							farm: 'farm'
 						}
-						$.ajax({
+						try{
+              $.ajax({
             // analyze response for getting image data from api using ajax 
-			    	  url: flickrApiUrl,
-			      	type: 'GET',
-			      	data: apiData,
-			      	dataType: 'json',
-              // fetching photo parameters by extracting json objects parameters
-              // - details of photo
+              url: flickrApiUrl,
+              type: 'GET',
+              data: apiData,
+              dataType: 'json',
+              
 
-			      	success: function (response) {
-			        	console.log(response.photos.photo[0].id);
-                           $.each(response.photos.photo, function (i, data) {
-			      			imgData.id = data.id;
-			      			imgData.secret = data.secret;
-			      			imgData.server=data.server;
-			      			imgData.farm = data.farm;
+              success: function (response) {
+                // check for the API key validation
+                if((response.code)===100){
+                  window.alert('Invalid API key!!!');
+                  return false;
+                }
+                if((response.code)===116){
+                  window.alert('Bad URL found');
+                  return false;
+                }
+                //console.log(response.photos.photo[0].id);
+                //console.log(response);
+                // fetching photo parameters by extracting json objects parameters
+              // - details of photo
+                $.each(response.photos.photo, function (i, data) {
+                  imgData.id = data.id;
+                  imgData.secret = data.secret;
+                  imgData.server=data.server;
+                  imgData.farm = data.farm;
                   // dynamic div  element for each image
-			      			imgList = imgList + '<div class="inner-div"><img id = "' + imgData.id + '" src = "https://farm'+imgData.farm+'.staticflickr.com/'+imgData.server+'/'+imgData.id+'_'+imgData.secret+'.jpg"/></div>';
-			      		}),
+                  imgList = imgList + '<div class="inner-div"><img id = "' + imgData.id + '" src = "https://farm'+imgData.farm+'.staticflickr.com/'+imgData.server+'/'+imgData.id+'_'+imgData.secret+'_n.jpg"/></div>';
+       
+                }),
 
                 // append retreived div photos to outer div             
-               	$(".outer-div").html(imgList);
+                $(".outer-div").html(imgList);
                 // event click function for image
                 imgSelect(flickrKey);  
 
-            	},
-			      	
-			      	error: function( error ){
-			        	console.log('error: ', error);
-			      	},
-			      	complete: function( xhr, status){
-			        	console.log("The request is completed");
-			      	}   						
-						});
+              },
+              
+              error: function( error ){
+                //console.log('error: ', error);
+                if (error.status===404) {
+                  window.alert("Error");
+                  return false;
+                }
+              },
+              complete: function( xhr, status){
+                //console.log(xhr);
+                //console.log(status);
+                console.log("The request is completed");
+              }               
+            });
+            }
+            catch(err){
+              window.alert('not reachable');
+            }
+
 		  });
 });
 // image click function 
@@ -156,4 +180,23 @@ function imgSelect(flickrKey){
        });
       });
     });  
+}
+function getSizeSmall(id, key){
+  var Url = "https://api.flickr.com/services/rest/?&method=flickr.photos.getSizes&api_key="+key+"&photo_id="+id;
+  var source = "";
+  $.getJSON(Url, {
+        nojsoncallback: 1,
+        format: "json"
+  })
+  .done(function(data){
+    console.log(data.sizes.size[4].source);
+    source = data.sizes.size[4].source;
+
+  })
+  .fail(function(error){
+
+  });
+
+  return source;
+
 }

@@ -121,6 +121,8 @@ function imgSelect(flickrKey){
       var clickedImgSrc = $(this).attr('src');
       var imgSource = "";
 
+      // replace _n small size(320 on longest side) with _z mdeium size(640 on longest side)
+      clickedImgSrc = clickedImgSrc.replace("_n", "_z");
       // api url for image info
       var singleUrl = "https://api.flickr.com/services/rest/?&method=flickr.photos.getInfo&api_key="+flickrKey+"&photo_id="+clickedID;
       // jquery method for JSON object 
@@ -181,6 +183,7 @@ function imgSelect(flickrKey){
       });
     });  
 }
+/*
 function getSizeSmall(id, key){
   var Url = "https://api.flickr.com/services/rest/?&method=flickr.photos.getSizes&api_key="+key+"&photo_id="+id;
   var source = "";
@@ -200,3 +203,4 @@ function getSizeSmall(id, key){
   return source;
 
 }
+*/

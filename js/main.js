@@ -57,20 +57,20 @@ $(document).ready(function(){
               success: function (response) {
                 console.log(response);
                 // check for the API key validation
-                if(response.photos.photo.length===0){
-                  window.alert("Not enough content")
-                  $('#inputTextTop').val(null);
-                  $('#inputTextCenter').val(null);
-                  return false;
-                }
-                else if(response.photos === undefined){
+                if(response.photos === undefined){
                     if(response.message === undefined){
                       window.alert("Error!");
                       return false;
                     }
                   window.alert(response.message);
                   return false;
-                 }
+                }
+                if(response.photos.photo.length===0){
+                  window.alert("Not enough content")
+                  $('#inputTextTop').val(null);
+                  $('#inputTextCenter').val(null);
+                  return false;
+                }
                 // fetching photo parameters by extracting json objects parameters
               // - details of photo
                 $.each(response.photos.photo, function (i, data) {
